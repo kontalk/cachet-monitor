@@ -38,7 +38,7 @@ Options:
   -h --help                      Show this screen.
   --version                      Show version
   --immediate                    Tick immediately (by default waits for first defined interval)
-  
+
 Environment varaibles:
   CACHET_API      override API url from configuration
   CACHET_TOKEN    override API token from configuration
@@ -177,6 +177,10 @@ func getConfiguration(path string) (*cachet.CachetMonitor, error) {
 			var s cachet.DNSMonitor
 			err = mapstructure.Decode(rawMonitor, &s)
 			t = &s
+        case "xmpp":
+            var s cachet.XMPPMonitor
+            err = mapstructure.Decode(rawMonitor, &s)
+            t = &s
 		default:
 			logrus.Errorf("Invalid monitor type (index: %d) %v", index, monType)
 			continue
